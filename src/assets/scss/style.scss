@@ -1,1 +1,48 @@
-@use "./partials/variables";
+@use "./partials/variables" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  margin: auto;
+  width: 80%;
+  max-width: 1400px;
+}
+
+/* #region HEADER */
+header {
+  background-color: $header-bg;
+  padding: 10px 0;
+  color: white;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .categories,
+    .icons {
+      display: flex;
+      gap: 15px;
+      width: 185px;
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+
+    .icons {
+      justify-content: flex-end;
+    }
+  }
+}
+
+/* #endregion HEADER */
