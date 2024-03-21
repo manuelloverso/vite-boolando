@@ -5,6 +5,11 @@ export default {
   data() {
     return {
       categories: ["Uomo", "Donna", "Bambino"],
+      navigate: [
+        "fa-regular fa-user icon",
+        "fa-regular fa-heart icon",
+        "fa-solid fa-bag-shopping icon",
+      ],
     };
   },
 };
@@ -20,9 +25,7 @@ export default {
         <img width="130" src="/images/boolean-logo.png" alt="" />
       </div>
       <div class="icons justify-content-end">
-        <i class="fa-regular fa-user icon"></i>
-        <i class="fa-regular fa-heart icon"></i>
-        <i class="fa-solid fa-bag-shopping icon"></i>
+        <i v-for="icon in navigate" :class="icon"></i>
       </div>
     </div>
   </header>
