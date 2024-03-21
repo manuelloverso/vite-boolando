@@ -51,3 +51,19 @@ main {
   }
 }
 /* #endregion MAIN */
+
+/* #region FOOTER */
+footer {
+  background-color: $footer-bg;
+  color: white;
+
+  .legal span {
+    margin-right: 10px;
+  }
+
+  .socials i {
+    margin-right: 10px;
+    font-size: 1.3rem;
+  }
+}
+/* #endregion FOOTER */
