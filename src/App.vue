@@ -2,11 +2,13 @@
 export default {
   name: "App",
   data() {
-    return {};
+    return {
+      hello: "hello wrodld",
+    };
   },
 };
 </script>
 
-<template></template>
+<template>{{ hello }}</template>
 
 <style></style>
