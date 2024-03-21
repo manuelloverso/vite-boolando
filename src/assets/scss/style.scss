@@ -1,16 +1,11 @@
 @use "./partials/variables" as *;
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@use "bootstrap/scss/bootstrap.scss";
 
 body {
   font-family: "Roboto", sans-serif;
 }
 
-.container {
+.my-container {
   margin: auto;
   width: 80%;
   max-width: 1400px;
@@ -22,7 +17,7 @@ header {
   padding: 10px 0;
   color: white;
 
-  .container {
+  .my-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -38,11 +33,21 @@ header {
         color: white;
       }
     }
-
-    .icons {
-      justify-content: flex-end;
-    }
   }
 }
 
 /* #endregion HEADER */
+
+/* #region MAIN */
+main {
+  .card {
+    .discounted {
+      color: $discount-red;
+    }
+
+    .full-price {
+      text-decoration: line-through;
+    }
+  }
+}
+/* #endregion MAIN */
