@@ -31,7 +31,15 @@ export default {
 
     //function to extract the soustainabilty label (true or false)
     extractGreenLabel(card) {
-      return true;
+      let isGreen = false;
+      if (card.badges.length == 2) {
+        isGreen = true;
+      } else {
+        if (card.badges[0].value == "Sostenibilità") {
+          isGreen = true;
+        }
+      }
+      return isGreen;
     },
   },
 };
