@@ -65,6 +65,14 @@ export default {
         @mouseleave="hover = false"
         alt=""
       />
+      <!-- add to favorites button -->
+      <button
+        @click="card.isInFavorites = !card.isInFavorites"
+        class="favorite"
+        :class="card.isInFavorites == true ? 'active' : ''"
+      >
+        <i class="fa-solid fa-heart"></i>
+      </button>
       <!-- card discount and green labels -->
       <!-- discount label -->
       <span v-if="generateDiscount(card) != ''" class="discount-label">{{
