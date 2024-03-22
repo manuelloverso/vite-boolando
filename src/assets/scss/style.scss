@@ -41,12 +41,36 @@ header {
 /* #region MAIN */
 main {
   .card {
+    position: relative;
     .discounted {
       color: $discount-red;
     }
 
-    .full-price {
+    .deleted-price {
       text-decoration: line-through;
+    }
+
+    .discount-label {
+      position: absolute;
+      left: 0;
+      bottom: 150px;
+      padding: 5px;
+      background-color: $discount-red;
+      color: white;
+    }
+
+    .green-label,
+    .moved-green-label {
+      background-color: green;
+      color: white;
+      position: absolute;
+      bottom: 150px;
+      left: 0;
+      padding: 5px;
+    }
+
+    .moved-green-label {
+      left: 50px;
     }
   }
 }

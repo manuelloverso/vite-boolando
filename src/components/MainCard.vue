@@ -10,6 +10,7 @@ export default {
   },
 
   methods: {
+    //Function to extract the discount from the object as a number in order to calculate the discounted price
     generateDiscount(card) {
       const price = card.price;
       let discount;
@@ -27,6 +28,11 @@ export default {
       }
       return discount;
     },
+
+    //function to extract the soustainabilty label (true or false)
+    extractGreenLabel(card) {
+      return true;
+    },
   },
 };
 </script>
@@ -34,7 +40,22 @@ export default {
 <template>
   <div class="col-4">
     <div class="card">
+      <!-- card image -->
       <img :src="'/images/' + card.frontImage" alt="" />
+      <!-- card discount and green labels -->
+      <!-- discount label -->
+      <span v-if="generateDiscount(card) != ''" class="discount-label">{{
+        "-" + generateDiscount(card) + "%"
+      }}</span>
+      <!-- green label -->
+      <span
+        v-if="extractGreenLabel(card)"
+        :class="
+          generateDiscount(card) == '' ? 'green-label' : 'moved-green-label'
+        "
+        >Sostenibilità</span
+      >
+      <!-- card body -->
       <div class="card-body">
         <p class="mb-1">{{ card.brand }}</p>
         <h3>{{ card.name.toUpperCase() }}</h3>
@@ -45,7 +66,9 @@ export default {
             )
           }}€</span
         >
-        <span class="full-price">{{ card.price }}€</span>
+        <span :class="generateDiscount(card) == '' ? '' : 'deleted-price'"
+          >{{ card.price }}€</span
+        >
       </div>
     </div>
   </div>
