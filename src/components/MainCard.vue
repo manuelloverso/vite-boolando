@@ -13,42 +13,33 @@ export default {
 
   methods: {
     //Function to extract the discount from the object as a number in order to calculate the discounted price
-    generateDiscount(card) {
-      const price = card.price;
-      let discount;
-      if (card.badges.length == 2) {
-        discount = card.badges[1].value;
-      } else {
-        if (card.badges[0].value != "Sostenibilità") {
-          discount = card.badges[0].value;
-        } else {
-          discount = "";
+    generateDiscount(product) {
+      let discount = "";
+      product.badges.forEach((obj) => {
+        if (obj.type == "discount") {
+          discount = obj.value;
+          discount = Number(discount.slice(1, -1));
         }
-      }
-      if (discount != "") {
-        discount = Number(discount.slice(1, -1));
-      }
+      });
       return discount;
     },
 
     //function to extract the soustainabilty label (true or false)
-    extractGreenLabel(card) {
+    extractGreenLabel(product) {
       let isGreen = false;
-      if (card.badges.length == 2) {
-        isGreen = true;
-      } else {
-        if (card.badges[0].value == "Sostenibilità") {
+      product.badges.forEach((obj) => {
+        if (obj.type == "tag") {
           isGreen = true;
         }
-      }
+      });
       return isGreen;
     },
 
-    selectImage(card) {
+    selectImage(product) {
       if (this.hover == false) {
-        return "/images/" + card.frontImage;
+        return "/images/" + product.frontImage;
       } else {
-        return "/images/" + card.backImage;
+        return "/images/" + product.backImage;
       }
     },
   },
