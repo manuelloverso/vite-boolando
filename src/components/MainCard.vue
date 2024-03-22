@@ -6,7 +6,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      hover: false,
+    };
   },
 
   methods: {
@@ -41,6 +43,14 @@ export default {
       }
       return isGreen;
     },
+
+    selectImage(card) {
+      if (this.hover == false) {
+        return "/images/" + card.frontImage;
+      } else {
+        return "/images/" + card.backImage;
+      }
+    },
   },
 };
 </script>
@@ -49,7 +59,12 @@ export default {
   <div class="col-4">
     <div class="card">
       <!-- card image -->
-      <img :src="'/images/' + card.frontImage" alt="" />
+      <img
+        :src="selectImage(card)"
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+        alt=""
+      />
       <!-- card discount and green labels -->
       <!-- discount label -->
       <span v-if="generateDiscount(card) != ''" class="discount-label">{{
