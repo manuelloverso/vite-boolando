@@ -2,8 +2,7 @@
 import AppHeader from "./components/AppHeader.vue";
 import MainProduct from "./components/MainProduct.vue";
 import AppFooter from "./components/AppFooter.vue";
-import axios from "axios";
-
+import { store } from "./store.js";
 export default {
   name: "App",
   //My components
@@ -14,15 +13,13 @@ export default {
   },
   data() {
     return {
-      products: [],
+      store,
     };
   },
 
-  mounted() {
-    axios.get("http://localhost:3000/products").then((response) => {
-      this.products = response.data;
-      console.log(this.products);
-    });
+  created() {
+    store.getProducts();
+    console.log(store);
   },
 };
 </script>
@@ -32,8 +29,8 @@ export default {
   <main>
     <div class="my-container row row-gap-3 my-3">
       <MainProduct
-        v-for="product in products"
         :product="product"
+        v-for="product in store.products"
         :key="product.id"
       />
     </div>
