@@ -1,123 +1,28 @@
 <script>
 import AppHeader from "./components/AppHeader.vue";
-import MainCard from "./components/MainCard.vue";
+import MainProduct from "./components/MainProduct.vue";
 import AppFooter from "./components/AppFooter.vue";
+import axios from "axios";
 
 export default {
   name: "App",
   //My components
   components: {
     AppHeader,
-    MainCard,
+    MainProduct,
     AppFooter,
   },
   data() {
     return {
-      cards: [
-        {
-          id: 1,
-          frontImage: "1.webp",
-          backImage: "1b.webp",
-          brand: "Levi's",
-          name: "Relaxed Fit",
-          price: 29.99,
-          isInFavorites: true,
-          badges: [
-            {
-              type: "tag",
-              value: "Sostenibilità",
-            },
-            {
-              type: "discount",
-              value: "-50%",
-            },
-          ],
-        },
-        {
-          id: 2,
-          frontImage: "2.webp",
-          backImage: "2b.webp",
-          brand: "Guess",
-          name: "Roses Tee",
-          price: 20.99,
-          isInFavorites: true,
-          badges: [
-            {
-              type: "discount",
-              value: "-30%",
-            },
-          ],
-        },
-        {
-          id: 3,
-          frontImage: "3.webp",
-          backImage: "3b.webp",
-          brand: "Come Zucchero Filato",
-          name: "Voglia di colori pastello",
-          price: 129.99,
-          isInFavorites: false,
-          badges: [
-            {
-              type: "discount",
-              value: "-30%",
-            },
-          ],
-        },
-        {
-          id: 4,
-          frontImage: "4.webp",
-          backImage: "4b.webp",
-          brand: "Levi's",
-          name: "Tee Unisex",
-          price: 14.99,
-          isInFavorites: false,
-          badges: [
-            {
-              type: "tag",
-              value: "Sostenibilità",
-            },
-            {
-              type: "discount",
-              value: "-50%",
-            },
-          ],
-        },
-        {
-          id: 5,
-          frontImage: "5.webp",
-          backImage: "5b.webp",
-          brand: "Maya Deluxe",
-          name: "Stripe Bodice",
-          price: 99.99,
-          isInFavorites: true,
-          badges: [
-            {
-              type: "tag",
-              value: "Sostenibilità",
-            },
-            {
-              type: "discount",
-              value: "-50%",
-            },
-          ],
-        },
-        {
-          id: 6,
-          frontImage: "6.webp",
-          backImage: "6b.webp",
-          brand: "Esprit",
-          name: "Maglione - Black",
-          price: 29.99,
-          isInFavorites: true,
-          badges: [
-            {
-              type: "tag",
-              value: "Sostenibilità",
-            },
-          ],
-        },
-      ],
+      products: [],
     };
+  },
+
+  mounted() {
+    axios.get("http://localhost:3000/products").then((response) => {
+      this.products = response.data;
+      console.log(this.products);
+    });
   },
 };
 </script>
@@ -126,7 +31,11 @@ export default {
   <AppHeader />
   <main>
     <div class="my-container row row-gap-3 my-3">
-      <MainCard v-for="card in cards" :card="card" :key="card.id" />
+      <MainProduct
+        v-for="product in products"
+        :product="product"
+        :key="product.id"
+      />
     </div>
   </main>
   <AppFooter />

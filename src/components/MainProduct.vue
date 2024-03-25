@@ -1,8 +1,8 @@
 <script>
 export default {
-  name: "MainCard",
+  name: "MainProduct",
   props: {
-    card: Object,
+    product: Object,
   },
 
   data() {
@@ -51,45 +51,47 @@ export default {
     <div class="card">
       <!-- card image -->
       <img
-        :src="selectImage(card)"
+        :src="selectImage(product)"
         @mouseover="hover = true"
         @mouseleave="hover = false"
         alt=""
       />
       <!-- add to favorites button -->
       <button
-        @click="card.isInFavorites = !card.isInFavorites"
+        @click="product.isInFavorites = !product.isInFavorites"
         class="favorite"
-        :class="card.isInFavorites == true ? 'active' : ''"
+        :class="{ active: product.isInFavorites }"
       >
         <i class="fa-solid fa-heart"></i>
       </button>
       <!-- card discount and green labels -->
       <!-- discount label -->
-      <span v-if="generateDiscount(card) != ''" class="discount-label">{{
-        "-" + generateDiscount(card) + "%"
+      <span v-if="generateDiscount(product) != ''" class="discount-label">{{
+        "-" + generateDiscount(product) + "%"
       }}</span>
       <!-- green label -->
       <span
-        v-if="extractGreenLabel(card)"
+        v-if="extractGreenLabel(product)"
         :class="
-          generateDiscount(card) == '' ? 'green-label' : 'moved-green-label'
+          generateDiscount(product) == '' ? 'green-label' : 'moved-green-label'
         "
         >Sostenibilità</span
       >
       <!-- card body -->
       <div class="card-body">
-        <p class="mb-1">{{ card.brand }}</p>
-        <h3>{{ card.name.toUpperCase() }}</h3>
-        <span v-if="generateDiscount(card) != ''" class="discounted me-3"
+        <p class="mb-1">{{ product.brand }}</p>
+        <h3>{{ product.name.toUpperCase() }}</h3>
+        <span v-if="generateDiscount(product) != ''" class="discounted me-3"
           >{{
-            (card.price - (generateDiscount(card) * card.price) / 100).toFixed(
-              2
-            )
+            (
+              product.price -
+              (generateDiscount(product) * product.price) / 100
+            ).toFixed(2)
           }}€</span
         >
-        <span :class="generateDiscount(card) == '' ? '' : 'deleted-price'"
-          >{{ card.price }}€</span
+        <!-- generateDiscount(product) == '' ? '' : 'deleted-price' -->
+        <span :class="{ 'deleted-price': generateDiscount(product) != '' }"
+          >{{ product.price }}€</span
         >
       </div>
     </div>
