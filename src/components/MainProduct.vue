@@ -80,7 +80,9 @@ export default {
       <!-- card body -->
       <div class="card-body">
         <p class="mb-1">{{ product.brand }}</p>
-        <h3 @click="$emit('showProduct')">{{ product.name.toUpperCase() }}</h3>
+        <h3 class="product-name" @click="$emit('showProduct', product)">
+          {{ product.name.toUpperCase() }}
+        </h3>
         <span v-if="generateDiscount(product) != ''" class="discounted me-3"
           >{{
             (
@@ -98,4 +100,8 @@ export default {
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.product-name {
+  cursor: pointer;
+}
+</style>

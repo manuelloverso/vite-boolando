@@ -15,7 +15,16 @@ export default {
     return {
       store,
       isModalShowing: false,
+      modelProduct: {},
     };
+  },
+
+  methods: {
+    fillModal(product) {
+      this.isModalShowing = true;
+      this.modelProduct = product;
+      console.log(this.modelProduct);
+    },
   },
 
   created() {
@@ -27,15 +36,15 @@ export default {
 
 <template>
   <body>
-    <div class="my-modal" :class="{ 'd-block': isModalShowing }">
-      <h1>My modal</h1>
+    <div v-if="isModalShowing" class="my-modal">
+      <h1>{{ modelProduct.name }}</h1>
       <button @click="isModalShowing = false">X</button>
     </div>
     <AppHeader />
     <main>
       <div class="my-container row row-gap-3 my-3">
         <MainProduct
-          @showProduct="isModalShowing = true"
+          @showProduct="fillModal"
           :product="product"
           v-for="product in store.products"
           :key="product.id"
@@ -48,7 +57,6 @@ export default {
 
 <style lang="scss">
 .my-modal {
-  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
