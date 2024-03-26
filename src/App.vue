@@ -66,11 +66,11 @@ export default {
           >
             Remove from favorites
           </button>
-          <button class="btn btn-danger" @click="isModalShowing = false">
-            Close
-          </button>
         </div>
       </div>
+      <button class="close-btn btn btn-danger" @click="isModalShowing = false">
+        Close
+      </button>
     </div>
     <!-- site header -->
     <AppHeader />
@@ -112,6 +112,12 @@ export default {
   transform: translate(-50%, -50%);
   z-index: 3;
   background-color: white;
+
+  .close-btn {
+    position: absolute;
+    bottom: 1.7rem;
+    right: 1.7rem;
+  }
 
   img {
     width: 300px;
