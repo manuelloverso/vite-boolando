@@ -16,11 +16,15 @@ export default {
       store,
       isModalShowing: false,
       modalProduct: {},
+      modalDiscount: 0,
+      discountedPrice: 0,
     };
   },
 
   methods: {
-    fillModal(product) {
+    fillModal(product, discount, discountedPrice) {
+      this.modalDiscount = discount;
+      this.discountedPrice = discountedPrice;
       this.isModalShowing = true;
       this.modalProduct = product;
     },
@@ -40,7 +44,12 @@ export default {
       <img :src="'/images/' + modalProduct.frontImage" alt="" />
       <div class="product-info">
         <h2>{{ modalProduct.name }}</h2>
-        <p>{{ modalProduct.brand }}</p>
+        <p class="mb-2">{{ modalProduct.brand }}</p>
+        <span class="modal-discount mb-2" v-if="modalDiscount != ''"
+          >-{{ modalDiscount }}%</span
+        >
+        <span class="mb-2 fs-3">{{ discountedPrice }}€</span>
+
         <button class="btn btn-danger" @click="isModalShowing = false">
           Close
         </button>
@@ -89,6 +98,18 @@ export default {
 
   img {
     width: 300px;
+  }
+
+  .product-info {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    .modal-discount {
+      padding: 5px;
+      background-color: red;
+      color: white;
+    }
   }
 }
 </style>

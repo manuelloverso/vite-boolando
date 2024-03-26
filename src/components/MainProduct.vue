@@ -13,9 +13,9 @@ export default {
 
   methods: {
     //Function to extract the discount from the object as a number in order to calculate the discounted price
-    generateDiscount(product) {
+    extractDiscount() {
       let discount = "";
-      product.badges.forEach((obj) => {
+      this.product.badges.forEach((obj) => {
         if (obj.type == "discount") {
           discount = obj.value;
           discount = Number(discount.slice(1, -1));
@@ -24,10 +24,17 @@ export default {
       return discount;
     },
 
+    generateDiscount(discount) {
+      return (
+        this.product.price -
+        (discount * this.product.price) / 100
+      ).toFixed(2);
+    },
+
     //function to extract the soustainabilty label (true or false)
-    extractGreenLabel(product) {
+    extractGreenLabel() {
       let isGreen = false;
-      product.badges.forEach((obj) => {
+      this.product.badges.forEach((obj) => {
         if (obj.type == "tag") {
           isGreen = true;
         }
@@ -35,11 +42,11 @@ export default {
       return isGreen;
     },
 
-    selectImage(product) {
+    selectImage() {
       if (this.hover == false) {
-        return "/images/" + product.frontImage;
+        return "/images/" + this.product.frontImage;
       } else {
-        return "/images/" + product.backImage;
+        return "/images/" + this.product.backImage;
       }
     },
   },
@@ -51,7 +58,7 @@ export default {
     <div class="card">
       <!-- card image -->
       <img
-        :src="selectImage(product)"
+        :src="selectImage()"
         @mouseover="hover = true"
         @mouseleave="hover = false"
         alt=""
@@ -66,35 +73,38 @@ export default {
       </button>
       <!-- card discount and green labels -->
       <!-- discount label -->
-      <span v-if="generateDiscount(product) != ''" class="discount-label">{{
-        "-" + generateDiscount(product) + "%"
+      <span v-if="extractDiscount() != ''" class="discount-label">{{
+        "-" + extractDiscount() + "%"
       }}</span>
       <!-- green label -->
       <span
-        v-if="extractGreenLabel(product)"
-        :class="
-          generateDiscount(product) == '' ? 'green-label' : 'moved-green-label'
-        "
+        v-if="extractGreenLabel()"
+        :class="extractDiscount() == '' ? 'green-label' : 'moved-green-label'"
         >Sostenibilità</span
       >
       <!-- card body -->
       <div class="card-body">
         <p class="mb-1">{{ product.brand }}</p>
         <!-- product name -->
-        <h3 class="product-name" @click="$emit('showProduct', product)">
+        <h3
+          class="product-name"
+          @click="
+            $emit(
+              'showProduct',
+              product,
+              extractDiscount(),
+              generateDiscount(extractDiscount())
+            )
+          "
+        >
           {{ product.name.toUpperCase() }}
         </h3>
         <!-- discounted price -->
-        <span v-if="generateDiscount(product) != ''" class="discounted me-3"
-          >{{
-            (
-              product.price -
-              (generateDiscount(product) * product.price) / 100
-            ).toFixed(2)
-          }}€</span
+        <span v-if="extractDiscount() != ''" class="discounted me-3"
+          >{{ generateDiscount(extractDiscount()) }}€</span
         >
         <!-- full price -->
-        <span :class="{ 'deleted-price': generateDiscount(product) != '' }"
+        <span :class="{ 'deleted-price': extractDiscount() != '' }"
           >{{ product.price }}€</span
         >
       </div>
