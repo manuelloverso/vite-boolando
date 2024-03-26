@@ -15,30 +15,35 @@ export default {
     return {
       store,
       isModalShowing: false,
-      modelProduct: {},
+      modalProduct: {},
+      isBlur: false,
     };
   },
 
   methods: {
     fillModal(product) {
+      this.isBlur = true;
       this.isModalShowing = true;
-      this.modelProduct = product;
-      console.log(this.modelProduct);
+      this.modalProduct = product;
+      console.log(this.modalProduct);
     },
   },
 
   created() {
     store.getProducts();
-    console.log(store);
   },
 };
 </script>
 
 <template>
   <body>
+    <div v-if="isModalShowing" class="overlay"></div>
     <div v-if="isModalShowing" class="my-modal">
-      <h1>{{ modelProduct.name }}</h1>
-      <button @click="isModalShowing = false">X</button>
+      <img :src="'/images/' + modalProduct.frontImage" alt="" />
+      <div class="product-info">
+        <h2>{{ modalProduct.name }}</h2>
+        <button @click="isModalShowing = false">X</button>
+      </div>
     </div>
     <AppHeader />
     <main>
@@ -56,14 +61,29 @@ export default {
 </template>
 
 <style lang="scss">
+.overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+
 .my-modal {
+  display: flex;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px 0;
+  gap: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
-  width: 300px;
-  aspect-ratio: 1;
+  z-index: 3;
   background-color: red;
+
+  img {
+    width: 300px;
+  }
 }
 </style>
