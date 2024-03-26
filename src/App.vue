@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       store,
+      isModalShowing: false,
     };
   },
 
@@ -25,17 +26,36 @@ export default {
 </script>
 
 <template>
-  <AppHeader />
-  <main>
-    <div class="my-container row row-gap-3 my-3">
-      <MainProduct
-        :product="product"
-        v-for="product in store.products"
-        :key="product.id"
-      />
+  <body>
+    <div class="my-modal" :class="{ 'd-block': isModalShowing }">
+      <h1>My modal</h1>
+      <button @click="isModalShowing = false">X</button>
     </div>
-  </main>
-  <AppFooter />
+    <AppHeader />
+    <main>
+      <div class="my-container row row-gap-3 my-3">
+        <MainProduct
+          @showProduct="isModalShowing = true"
+          :product="product"
+          v-for="product in store.products"
+          :key="product.id"
+        />
+      </div>
+    </main>
+    <AppFooter />
+  </body>
 </template>
 
-<style></style>
+<style lang="scss">
+.my-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 300px;
+  aspect-ratio: 1;
+  background-color: red;
+}
+</style>

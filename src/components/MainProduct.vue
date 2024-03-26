@@ -80,7 +80,7 @@ export default {
       <!-- card body -->
       <div class="card-body">
         <p class="mb-1">{{ product.brand }}</p>
-        <h3>{{ product.name.toUpperCase() }}</h3>
+        <h3 @click="$emit('showProduct')">{{ product.name.toUpperCase() }}</h3>
         <span v-if="generateDiscount(product) != ''" class="discounted me-3"
           >{{
             (
