@@ -16,16 +16,13 @@ export default {
       store,
       isModalShowing: false,
       modalProduct: {},
-      isBlur: false,
     };
   },
 
   methods: {
     fillModal(product) {
-      this.isBlur = true;
       this.isModalShowing = true;
       this.modalProduct = product;
-      console.log(this.modalProduct);
     },
   },
 
@@ -38,16 +35,23 @@ export default {
 <template>
   <body>
     <div v-if="isModalShowing" class="overlay"></div>
+    <!-- modal card showed on article's name click -->
     <div v-if="isModalShowing" class="my-modal">
       <img :src="'/images/' + modalProduct.frontImage" alt="" />
       <div class="product-info">
         <h2>{{ modalProduct.name }}</h2>
-        <button @click="isModalShowing = false">X</button>
+        <p>{{ modalProduct.brand }}</p>
+        <button class="btn btn-danger" @click="isModalShowing = false">
+          Close
+        </button>
       </div>
     </div>
+    <!-- site header -->
     <AppHeader />
+    <!-- site main -->
     <main>
       <div class="my-container row row-gap-3 my-3">
+        <!-- product cards -->
         <MainProduct
           @showProduct="fillModal"
           :product="product"
@@ -56,6 +60,7 @@ export default {
         />
       </div>
     </main>
+    <!-- site footer -->
     <AppFooter />
   </body>
 </template>
@@ -80,7 +85,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
-  background-color: red;
+  background-color: white;
 
   img {
     width: 300px;

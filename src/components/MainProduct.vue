@@ -80,9 +80,11 @@ export default {
       <!-- card body -->
       <div class="card-body">
         <p class="mb-1">{{ product.brand }}</p>
+        <!-- product name -->
         <h3 class="product-name" @click="$emit('showProduct', product)">
           {{ product.name.toUpperCase() }}
         </h3>
+        <!-- discounted price -->
         <span v-if="generateDiscount(product) != ''" class="discounted me-3"
           >{{
             (
@@ -91,7 +93,7 @@ export default {
             ).toFixed(2)
           }}€</span
         >
-        <!-- generateDiscount(product) == '' ? '' : 'deleted-price' -->
+        <!-- full price -->
         <span :class="{ 'deleted-price': generateDiscount(product) != '' }"
           >{{ product.price }}€</span
         >
