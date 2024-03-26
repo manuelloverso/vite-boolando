@@ -18,11 +18,13 @@ export default {
       modalProduct: {},
       modalDiscount: 0,
       discountedPrice: 0,
+      isModalInFavorites: null,
     };
   },
 
   methods: {
     fillModal(product, discount, discountedPrice) {
+      this.isModalInFavorites = product.isInFavorites;
       this.modalDiscount = discount;
       this.discountedPrice = discountedPrice;
       this.isModalShowing = true;
@@ -43,16 +45,31 @@ export default {
     <div v-if="isModalShowing" class="my-modal">
       <img :src="'/images/' + modalProduct.frontImage" alt="" />
       <div class="product-info">
-        <h2>{{ modalProduct.name }}</h2>
+        <h2>{{ modalProduct.name.toUpperCase() }}</h2>
         <p class="mb-2">{{ modalProduct.brand }}</p>
         <span class="modal-discount mb-2" v-if="modalDiscount != ''"
           >-{{ modalDiscount }}%</span
         >
         <span class="mb-2 fs-3">{{ discountedPrice }}€</span>
-
-        <button class="btn btn-danger" @click="isModalShowing = false">
-          Close
-        </button>
+        <div class="modal-buttons">
+          <button
+            class="btn btn-primary me-2"
+            v-if="modalProduct.isInFavorites == false"
+            @click="modalProduct.isInFavorites = !modalProduct.isInFavorites"
+          >
+            Add to favorites
+          </button>
+          <button
+            class="btn btn-primary me-2"
+            v-if="modalProduct.isInFavorites"
+            @click="modalProduct.isInFavorites = !modalProduct.isInFavorites"
+          >
+            Remove from favorites
+          </button>
+          <button class="btn btn-danger" @click="isModalShowing = false">
+            Close
+          </button>
+        </div>
       </div>
     </div>
     <!-- site header -->
